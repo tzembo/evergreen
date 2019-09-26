@@ -83,7 +83,6 @@ func TestSpawnEC2InstanceOnDemand(t *testing.T) {
 	})
 	h, err := m.SpawnHost(ctx, h)
 	assert.NoError(err)
-	assert.NoError(h.Insert())
 	foundHosts, err := host.Find(host.IsUninitialized)
 	assert.NoError(err)
 	assert.Len(foundHosts, 1)
@@ -125,9 +124,9 @@ func TestSpawnEC2InstanceSpot(t *testing.T) {
 		UserName: evergreen.User,
 		UserHost: false,
 	})
+	assert.NoError(h.Insert())
 	h, err := m.SpawnHost(ctx, h)
 	assert.NoError(err)
-	assert.NoError(h.Insert())
 	foundHosts, err := host.Find(host.IsUninitialized)
 	assert.NoError(err)
 	assert.Len(foundHosts, 1)
